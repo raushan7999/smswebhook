@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Debug builds only: allow plain HTTP and user-installed CAs so webhooks on a local test server
+    (e.g. http://10.0.2.2:8080 from the emulator) and debugging proxies can be used.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

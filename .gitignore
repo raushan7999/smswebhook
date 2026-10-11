@@ -1,0 +1,27 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.jks
+*.keystore
+keystore.properties
+/app/release
+/release_item/1_signing_key/
+/release_item/**/*.mp4
+/release_item/**/*.wav
+/.kotlin
+# Release binaries and R8 mapping are kept locally (upload to Play / GitHub Releases), not in git
+/release_item/2_release_*/*.aab
+/release_item/2_release_*/*.apk
+/release_item/2_release_*/mapping.txt

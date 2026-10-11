@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>History and delivery logs · SMS Webhook</title>
+<meta name="description" content="Find any message, see what happened to it, and retry failures.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/history-and-logs/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/history-and-logs/">
+<meta property="og:title" content="History and delivery logs · SMS Webhook">
+<meta property="og:description" content="Find any message, see what happened to it, and retry failures.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › History and delivery logs</p>
+<h1>History and delivery logs</h1>
+<p class="meta">Find any message, see what happened to it, and retry failures.</p>
+<div class="split"><div><h2>Message history</h2>
+<ul>
+<li><b class="ui">Messages</b> lists every stored SMS, newest first. Search finds text in the sender or the message.</li>
+<li>Filter chips: <b class="ui">All</b>, <b class="ui">Delivered</b>, <b class="ui">Failed</b>, <b class="ui">Pending</b>, <b class="ui">Filtered</b>.</li>
+</ul>
+<h2>Message detail</h2>
+<p>Tap a message to see the full text, sender, times, SIM, parts and ID, then one card per webhook with its status, attempts, HTTP status, last attempt and error. <b class="ui">Show details</b> reveals the exact request body and your server's response. <b class="ui">Delivery attempts</b> lists every request for this message.</p>
+<p>The bin icon deletes the message from the app only; the SMS in your messaging app is not touched.</p>
+<h2>Delivery logs</h2>
+<p><b class="ui">Logs</b> lists every HTTP attempt: webhook, method and URL (query values hidden), outcome, status, attempt number, duration and time. Filter by <b class="ui">Successful</b> or <b class="ui">Failed</b>, open the message, or clear all logs with the icon at the top. Header values are never logged.</p></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/messages.jpg" alt="Message history with search and status filters" width="480" height="935" loading="lazy"><figcaption>Search and filter the history.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/message-detail.jpg" alt="Message detail with the full SMS" width="480" height="935" loading="lazy"><figcaption>Full message and its details.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/logs.jpg" alt="Delivery logs with two successful attempts" width="480" height="935" loading="lazy"><figcaption>Every attempt with status and duration.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a href="../delivery-and-retries/"><small>← Previous</small>Delivery, retries and offline</a><a class="next" href="../settings/"><small>Next →</small>Settings, retention and backup</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Troubleshooting · SMS Webhook</title>
+<meta name="description" content="Fix the common problems: no SMS, failed deliveries, regex that doesn&#x27;t match.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/troubleshooting/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/troubleshooting/">
+<meta property="og:title" content="Troubleshooting · SMS Webhook">
+<meta property="og:description" content="Fix the common problems: no SMS, failed deliveries, regex that doesn&#x27;t match.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Troubleshooting</p>
+<h1>Troubleshooting</h1>
+<p class="meta">Fix the common problems: no SMS, failed deliveries, regex that doesn't match.</p>
+<h2>SMS don't appear in the app</h2>
+<ul>
+<li><b>Permission</b>: Home shows <b class="ui">No permission</b> → tap <b class="ui">Grant permission</b>. If the SMS switch is greyed out in App info, use <b>⋮ → Allow restricted settings</b> first.</li>
+<li><b>Forwarding off</b>: turn on <b class="ui">Forward incoming SMS</b>.</li>
+<li><b>Force-stopped</b>: after "Force stop", Android pauses the app until you open it again.</li>
+<li><b>RCS / chat messages</b>: messages marked "RCS" or "Chat" in your messaging app are not SMS and can't be forwarded.</li>
+<li><b>Battery saving</b>: set the app to Unrestricted battery use (see <a href="../getting-started/">Getting started</a>).</li>
+</ul>
+<h2>Messages are saved but not delivered</h2>
+<div class="tablewrap"><table>
+<tr><th>You see</th><th>Do this</th></tr>
+<tr><td><b class="ui">Filtered</b></td><td>Check the webhook is enabled and test its rules with a sample SMS.</td></tr>
+<tr><td><b class="ui">Pending</b> for long</td><td>Check the internet, and <b class="ui">Only on Wi-Fi</b> in Settings.</td></tr>
+<tr><td>HTTP 401 / 403</td><td>Fix the token or key in the webhook's headers, then <b class="ui">Retry</b>.</td></tr>
+<tr><td>HTTP 404</td><td>Fix the URL path.</td></tr>
+<tr><td>HTTP 400 / 422</td><td>Your server rejects the body; check the payload format and field names with <b class="ui">Show details</b>.</td></tr>
+<tr><td><i>Unexpected redirect</i></td><td>Use the final URL (with <code>https://</code> and the exact path).</td></tr>
+<tr><td><i>TLS/SSL error</i></td><td>Install a valid certificate on your server.</td></tr>
+<tr><td><i>Re-enter the secret value</i></td><td>Edit the webhook, type the secret again, save, then <b class="ui">Retry failed</b>.</td></tr>
+</table></div>
+<h2>My server receives a message twice</h2>
+<p>This happens only if your server accepted a request but the reply was lost. Ignore repeats using <code>X-Idempotency-Key</code>.</p>
+<h2>My regex doesn't match</h2>
+<ul>
+<li>Use <b class="ui">Test regex</b> with the real message text.</li>
+<li>Escape special characters: <code>\.</code>, <code>\(</code>, <code>\$</code>.</li>
+<li>Matching ignores case unless <b class="ui">Case-sensitive</b> is ticked.</li>
+</ul>
+<p>Still stuck? <a href="../../support/">Contact support</a>. Please don't send us SMS content or API keys.</p>
+<nav class="pager" aria-label="More tutorials"><a href="../receive-on-your-server/"><small>← Previous</small>Receive webhooks on your server</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delivery, retries and offline · SMS Webhook</title>
+<meta name="description" content="How messages are delivered, retried and kept safe without internet.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/">
+<meta property="og:title" content="Delivery, retries and offline · SMS Webhook">
+<meta property="og:description" content="How messages are delivered, retried and kept safe without internet.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Delivery, retries and offline</p>
+<h1>Delivery, retries and offline</h1>
+<p class="meta">How messages are delivered, retried and kept safe without internet.</p>
+<div class="split"><div><h2>What happens to each SMS</h2>
+<ol class="steps">
+<li>The SMS is saved on the phone. Duplicate broadcasts of the same SMS are ignored.</li>
+<li>Every enabled webhook checks its rules. Matches are queued; the rest are marked <b class="ui">Filtered</b> for that webhook.</li>
+<li>Each queued delivery is sent as soon as there is internet (or Wi-Fi, if you chose <b class="ui">Only on Wi-Fi</b>).</li>
+<li>A 2xx response marks it <b class="ui">Sent</b>. Otherwise the app retries or marks it <b class="ui">Failed</b>.</li>
+</ol>
+<h2>Statuses</h2>
+<div class="tablewrap"><table>
+<tr><th>Status</th><th>Meaning</th></tr>
+<tr><td><b class="ui">Pending</b></td><td>Waiting to be sent (for example, no internet yet)</td></tr>
+<tr><td><b class="ui">Sending</b></td><td>The request is in progress</td></tr>
+<tr><td><b class="ui">Retrying</b></td><td>A temporary problem; another attempt is scheduled</td></tr>
+<tr><td><b class="ui">Delivered / Sent</b></td><td>Your server answered with 2xx</td></tr>
+<tr><td><b class="ui">Failed</b></td><td>A permanent error, or retries ran out. Tap <b class="ui">Retry</b> after fixing the cause</td></tr>
+<tr><td><b class="ui">Filtered</b></td><td>The message didn't match this webhook's rules</td></tr>
+</table></div>
+<h2>Retries</h2>
+<ul>
+<li>Timeouts, connection errors and HTTP 408, 425, 429 and 5xx are retried. Other 4xx responses and certificate errors are not, because repeating the same request can't succeed.</li>
+<li>The wait doubles after each failure: with a 30 s first delay, 30 s → 1 min → 2 min → 4 min…</li>
+<li><b class="ui">Maximum retries</b> is the number of retries after the first attempt.</li>
+<li>A <b class="ui">Retry</b> button appears on failed deliveries; <b class="ui">Retry failed</b> on the webhook detail screen re-queues them all.</li>
+</ul>
+<h2>Offline and restarts</h2>
+<p>Deliveries wait for a connection and don't use up retries while the phone is offline. They also survive the app being closed and the phone restarting.</p>
+<h2>Duplicates</h2>
+<p>Each message is sent to each webhook once. If your server accepted a request but its reply never reached the phone, the app retries; use the <code>X-Idempotency-Key</code> header to ignore the repeat. See <a href="../receive-on-your-server/">Receive webhooks on your server</a>.</p></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/deliveries.jpg" alt="Message detail with one card per webhook: Sent, Filtered, Sent" width="480" height="935" loading="lazy"><figcaption>One card per webhook for every message.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/delivery-step.jpg" alt="Retry and timeout settings step" width="480" height="935" loading="lazy"><figcaption>Timeout, retries and first retry delay.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a href="../headers-and-authentication/"><small>← Previous</small>Headers and authentication</a><a class="next" href="../history-and-logs/"><small>Next →</small>History and delivery logs</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

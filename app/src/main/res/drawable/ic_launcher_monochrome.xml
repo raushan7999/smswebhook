@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Message bubble with the webhook symbol inside. Source: release_item/4_graphics/source/monochrome.svg -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:strokeColor="#FF000000"
+        android:strokeWidth="4"
+        android:strokeLineJoin="round"
+        android:pathData="M40,29H68A12,12 0,0 1,80 41V61A12,12 0,0 1,68 73H50L37,81L38.5,72.6A12,12 0,0 1,28 61V41A12,12 0,0 1,40 29Z" />
+    <group
+        android:scaleX="1.65"
+        android:scaleY="1.65"
+        android:translateX="54"
+        android:translateY="53.89">
+        <path
+            android:pathData="M3.03 -5.05A3.60 3.60 0 1 0 -2.44 -4.36L6.06 3.50"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FF000000"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M2.86 5.15A3.60 3.60 0 1 0 4.99 0.06L-6.06 3.50"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FF000000"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M-5.89 -0.10A3.60 3.60 0 1 0 -2.55 4.29L0.00 -7.00"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FF000000"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

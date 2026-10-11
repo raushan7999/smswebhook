@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: demo data for store screenshots and tutorials. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <receiver
+            android:name="com.bestcallerapp.smswebhook.demo.DemoDataReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.bestcallerapp.smswebhook.DEMO_SEED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

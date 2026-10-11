@@ -1,0 +1,20 @@
+# R8 keep rules for SMS Webhook.
+# Most libraries (Room, Hilt, WorkManager, OkHttp, kotlinx.serialization) ship consumer rules.
+
+# kotlinx.serialization: keep generated serializers of our @Serializable classes.
+-keepclassmembers @kotlinx.serialization.Serializable class com.bestcallerapp.smswebhook.** {
+    *** Companion;
+    *** INSTANCE;
+    kotlinx.serialization.KSerializer serializer(...);
+}
+-keep,includedescriptorclasses class com.bestcallerapp.smswebhook.**$$serializer { *; }
+
+# Strip verbose/debug logcat calls from release builds (no sensitive data reaches logcat).
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+}
+
+# Keep source line numbers for crash reports while hiding original file names.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile

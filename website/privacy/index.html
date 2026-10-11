@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy · SMS Webhook</title>
+<meta name="description" content="How SMS Webhook handles your messages: forwarded only to the webhooks you configure, never to us.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/privacy/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/icon-192.png">
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/privacy/">
+<meta property="og:title" content="Privacy Policy · SMS Webhook">
+<meta property="og:description" content="How SMS Webhook handles your messages: forwarded only to the webhooks you configure, never to us.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../#features">Features</a>
+      <a href="../#how">How it works</a>
+      <a href="../#screens">Screens</a>
+      <a href="../#video">Video</a>
+      <a href="../#faq">FAQ</a>
+      <a href="../guide/">Guide</a>
+      <a href="../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc">
+<h1>Privacy Policy</h1>
+<p class="meta">SMS Webhook (Android app <code>com.bestcallerapp.smswebhook</code>) · Last updated: 10 October 2026</p>
+<p>This policy explains what SMS Webhook ("the app") does with information, published by Best Caller, Bengaluru, India ("we"). In short: <b>the app forwards your SMS only to the web addresses you configure; we do not receive, store or sell your messages.</b></p>
+
+<h2>1. What the app processes, and where it goes</h2>
+<div class="tablewrap"><table>
+<tr><th>Information</th><th>Why</th><th>Where it is stored</th><th>Where it is sent</th></tr>
+<tr><td>Incoming SMS: sender, text, times, SIM slot and subscription</td><td>To forward messages that match your rules</td><td>On your phone, in the app's private storage</td><td>Only to the webhook URLs you add, when a message matches that webhook</td></tr>
+<tr><td>Webhook settings (URLs, rules, headers)</td><td>To know where and how to forward</td><td>On your phone. Secret header values are encrypted with the Android Keystore</td><td>Nowhere, unless you export them to a file you choose</td></tr>
+<tr><td>Delivery results and logs (status, HTTP code, response, timing)</td><td>To show delivery history and retry failures</td><td>On your phone</td><td>Nowhere</td></tr>
+<tr><td>Device model and Android version (optional field, off by default)</td><td>Only if you add the "device" field to a payload</td><td>Not stored</td><td>Only to your own webhook</td></tr>
+</table></div>
+<p>The webhook URLs are chosen and controlled by you. What happens to forwarded messages on those servers is governed by whoever operates them (usually you or your organisation).</p>
+
+<h2>2. What we do not do</h2>
+<ul>
+<li>We do not operate any server that receives your SMS, settings or delivery data.</li>
+<li>The app has no account or sign-up, and contains no advertising, analytics or crash-reporting SDKs.</li>
+<li>The app does not read your existing SMS inbox, does not send SMS, and does not access contacts or location.</li>
+<li>We do not sell or share personal information.</li>
+</ul>
+
+<h2>3. Permissions</h2>
+<ul>
+<li><b>Receive SMS</b>: to see new SMS as they arrive. Required for the app to work.</li>
+<li><b>Internet and network state</b>: to send to your webhooks and wait for a connection.</li>
+<li><b>Foreground service, wake lock, run at startup</b>: used by Android's WorkManager to finish deliveries in the background and after a restart.</li>
+</ul>
+
+<h2>4. Security</h2>
+<p>Release versions send data only over HTTPS with certificate verification and do not follow redirects. Secret header values are encrypted with a key held in the Android Keystore. App data is excluded from cloud backups and device-to-device transfer.</p>
+
+<h2>5. Retention and deletion</h2>
+<p>Messages and logs are kept on your phone according to your retention settings (by default 30 days) and can be deleted at any time in Settings (<b>Clear history</b>, <b>Clear logs</b>, <b>Clear all application data</b>) or by uninstalling the app. Because we hold no copy, there is nothing for us to delete on a server. See <a href="../support/#delete">how to delete your data</a>.</p>
+
+<h2>6. Children</h2>
+<p>The app is intended for adults (18+) and is not directed at children.</p>
+
+<h2>7. Changes</h2>
+<p>We will update this page when the app's handling of information changes, and change the "Last updated" date above.</p>
+
+<h2>8. Contact and grievance officer</h2>
+<p>Questions or complaints: <a href="mailto:smswebhook@bestcallerapp.com">smswebhook@bestcallerapp.com</a>. Grievance officer (India): Best Caller, Bengaluru, Karnataka, India, at the same email address. We aim to respond within 7 days.</p>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../"><img src="../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../#features">Features</a></li>
+          <li><a href="../#how">How it works</a></li>
+          <li><a href="../#video">Video</a></li>
+          <li><a href="../guide/">How-to guide</a></li>
+          <li><a href="../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../support/">Support</a></li>
+          <li><a href="../privacy/">Privacy policy</a></li>
+          <li><a href="../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

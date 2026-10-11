@@ -1,0 +1,23 @@
+=== Play Console → Release → Release notes (max 500 characters per language) ===
+
+<en-IN>
+First release of SMS Webhook.
+• Forward incoming SMS to your own HTTPS webhooks
+• Multiple webhooks, each with its own filters: sender, keywords, regex, SIM, time; AND / OR / NOT
+• JSON, custom JSON template, plain text or form data
+• Extract values (amount, OTP, account) with regex
+• Automatic retries with backoff; works offline and delivers when back online
+• Message history, delivery logs, test button
+• Secrets encrypted on the device. No account, no ads
+</en-IN>
+
+<hi-IN>
+SMS Webhook का पहला संस्करण।
+• आने वाले SMS अपने HTTPS webhook पर भेजें
+• कई webhook, हर एक के अपने फ़िल्टर: भेजने वाला, कीवर्ड, regex, SIM, समय; AND / OR / NOT
+• JSON, कस्टम JSON टेम्पलेट, सादा टेक्स्ट या फ़ॉर्म डेटा
+• regex से राशि, OTP, खाता संख्या निकालें
+• अपने-आप दोबारा कोशिश; इंटरनेट लौटते ही भेजता है
+• मैसेज हिस्ट्री, डिलीवरी लॉग, टेस्ट बटन
+• गुप्त जानकारी फ़ोन पर एन्क्रिप्टेड। कोई अकाउंट नहीं, कोई विज्ञापन नहीं
+</hi-IN>

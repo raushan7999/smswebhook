@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Receive webhooks on your server · SMS Webhook</title>
+<meta name="description" content="What the app sends, how to respond, and examples in Node.js, Python and PHP.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/receive-on-your-server/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/receive-on-your-server/">
+<meta property="og:title" content="Receive webhooks on your server · SMS Webhook">
+<meta property="og:description" content="What the app sends, how to respond, and examples in Node.js, Python and PHP.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Receive webhooks on your server</p>
+<h1>Receive webhooks on your server</h1>
+<p class="meta">What the app sends, how to respond, and examples in Node.js, Python and PHP.</p>
+<h2>The request</h2>
+<pre><code>POST /webhooks/sms HTTP/1.1
+Content-Type: application/json; charset=utf-8
+User-Agent: SmsWebhook/1.0.0
+Authorization: Bearer &lt;your token&gt;
+X-Idempotency-Key: 42-3-1791212400412
+X-SmsWebhook-Delivery: 118
+
+{&quot;sender&quot;:&quot;VM-HDFCBK&quot;,&quot;message&quot;:&quot;Rs 5,000.00 credited to A/c XX1234 ...&quot;,&quot;timestamp&quot;:&quot;2026-10-05T20:30:00+05:30&quot;}</code></pre>
+<ul>
+<li>Always <code>POST</code>; the body is in the format you chose. Test requests add <code>X-SmsWebhook-Test: true</code>.</li>
+<li><code>X-Idempotency-Key</code> is the same for every retry of one message to one webhook. Store it and skip repeats.</li>
+</ul>
+<h2>How to respond</h2>
+<div class="tablewrap"><table>
+<tr><th>Your response</th><th>What the app does</th></tr>
+<tr><td>Any 2xx</td><td>Marks the message delivered. Answer fast; do heavy work later.</td></tr>
+<tr><td>408, 425, 429, 5xx, timeout</td><td>Retries with increasing delays</td></tr>
+<tr><td>Other 4xx (400, 401, 403, 404…)</td><td>Fails without retrying; fix the cause and retry from the app</td></tr>
+<tr><td>3xx redirect</td><td>Fails; redirects are not followed. Use the final URL</td></tr>
+</table></div>
+<p>The first 4,000 characters of your response are shown in the app, so a short reply like <code>{"received":true}</code> helps when debugging.</p>
+<h2>Node.js (Express)</h2>
+<pre><code>import express from &quot;express&quot;;
+const app = express();
+app.use(express.json());
+const seen = new Set(); // use your database in production
+
+app.post(&quot;/webhooks/sms&quot;, (req, res) =&gt; {
+  if (req.get(&quot;Authorization&quot;) !== `Bearer ${process.env.SMS_WEBHOOK_TOKEN}`) return res.sendStatus(401);
+  const key = req.get(&quot;X-Idempotency-Key&quot;);
+  if (seen.has(key)) return res.json({ received: true, duplicate: true });
+  seen.add(key);
+  const { sender, message, timestamp } = req.body;
+  console.log(`SMS from ${sender} at ${timestamp}: ${message}`);
+  res.json({ received: true });
+});
+
+app.listen(8080);</code></pre>
+<h2>Python (Flask)</h2>
+<pre><code>import os
+from flask import Flask, request, jsonify, abort
+
+app = Flask(__name__)
+seen = set()  # use your database in production
+
+@app.post(&quot;/webhooks/sms&quot;)
+def sms():
+    if request.headers.get(&quot;Authorization&quot;) != f&quot;Bearer {os.environ[&#x27;SMS_WEBHOOK_TOKEN&#x27;]}&quot;:
+        abort(401)
+    key = request.headers.get(&quot;X-Idempotency-Key&quot;)
+    if key in seen:
+        return jsonify(received=True, duplicate=True)
+    seen.add(key)
+    data = request.get_json()
+    print(&quot;SMS from&quot;, data[&quot;sender&quot;], &quot;:&quot;, data[&quot;message&quot;])
+    return jsonify(received=True)</code></pre>
+<h2>PHP</h2>
+<pre><code>&lt;?php
+if (($_SERVER[&#x27;HTTP_AUTHORIZATION&#x27;] ?? &#x27;&#x27;) !== &#x27;Bearer &#x27; . getenv(&#x27;SMS_WEBHOOK_TOKEN&#x27;)) {
+    http_response_code(401); exit;
+}
+$data = json_decode(file_get_contents(&#x27;php://input&#x27;), true);
+$key  = $_SERVER[&#x27;HTTP_X_IDEMPOTENCY_KEY&#x27;] ?? &#x27;&#x27;;
+// look up $key in your database and skip it if already processed
+error_log(&quot;SMS from {$data[&#x27;sender&#x27;]}: {$data[&#x27;message&#x27;]}&quot;);
+header(&#x27;Content-Type: application/json&#x27;);
+echo json_encode([&#x27;received&#x27; =&gt; true]);</code></pre>
+<h2>Automation tools</h2>
+<p>n8n, Zapier, Make and similar tools give you a webhook URL in their "Webhook" trigger. Paste it into SMS Webhook, tap <b class="ui">Test</b>, and map the fields (<code>sender</code>, <code>message</code>, your extracted values) in the tool.</p>
+<div class="note"><p>Use HTTPS with a valid certificate (for example Let's Encrypt). Self-signed certificates are rejected for your security.</p></div>
+<nav class="pager" aria-label="More tutorials"><a href="../settings/"><small>← Previous</small>Settings, retention and backup</a><a class="next" href="../troubleshooting/"><small>Next →</small>Troubleshooting</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

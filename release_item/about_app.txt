@@ -1,0 +1,30 @@
+SMS Webhook — identifiers and accounts
+======================================
+App name (Play)        SMS Webhook: Forward SMS
+App name (launcher)    SMS Webhook
+Package                com.bestcallerapp.smswebhook          (debug: .debug, qa: .qa)
+Version                1.0.0 / versionCode 10000
+Min / target SDK       26 (Android 8.0) / 37
+Category               Tools
+Publisher              Best Caller, Bengaluru, Karnataka, India
+Support email          smswebhook@bestcallerapp.com          (create before submitting)
+Website                https://smswebhook.bestcallerapp.com/
+Privacy policy         https://smswebhook.bestcallerapp.com/privacy/
+Terms                  https://smswebhook.bestcallerapp.com/terms/
+Support / deletion     https://smswebhook.bestcallerapp.com/support/  (#delete)
+Play URL               https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook  (live after publishing)
+
+Upload key (1_signing_key/smswebhook-release.jks, alias smswebhook)
+  SHA-1     03:4B:7F:65:B3:56:4D:2D:FD:60:2B:7A:97:64:6C:54:9D:18:66:3A
+  SHA-256   92:23:11:05:66:8E:94:FE:58:28:A8:9F:48:53:16:57:EA:0F:97:0E:1B:1E:83:C8:8E:DD:EF:30:69:38:45:F6
+
+App-signing key (Google, Play App Signing)
+  SHA-1     (fill in after the first upload: Play Console → Test and release → App integrity)
+  SHA-256   (fill in)
+
+Brand
+  Icon        message bubble + webhook symbol, white on #16A34A (from the BC SMS Webhook app)
+  Colours     #16A34A brand green, #064E3B deep green, #FACC15 highlight yellow
+  Fonts       Poppins (graphics/video, OFL), Inter (website, OFL)
+
+No Google Cloud, Firebase, AdMob or other external services are used by this app.

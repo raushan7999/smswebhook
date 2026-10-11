@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Add a webhook · SMS Webhook</title>
+<meta name="description" content="Walk through the seven-step webhook editor and test your endpoint.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/add-a-webhook/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/add-a-webhook/">
+<meta property="og:title" content="Add a webhook · SMS Webhook">
+<meta property="og:description" content="Walk through the seven-step webhook editor and test your endpoint.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Add a webhook</p>
+<h1>Add a webhook</h1>
+<p class="meta">Walk through the seven-step webhook editor and test your endpoint.</p>
+<div class="split"><div><p>Open <b class="ui">Webhooks</b> and tap <b class="ui">Add webhook</b>. The editor has seven steps; <b class="ui">Next</b> checks each step and shows any problem next to the field.</p>
+<ol class="steps">
+<li><b>Webhook</b>: a <b class="ui">Webhook name</b> (for example <i>Payment Server</i>) and the <b class="ui">Webhook URL</b>. The URL must start with <code>https://</code>. Requests are sent with POST.</li>
+<li><b>Headers &amp; authentication</b>: add a <b class="ui">Bearer token</b>, <b class="ui">Basic auth</b>, an <b class="ui">API key header</b> or any custom header. See <a href="../headers-and-authentication/">Headers and authentication</a>.</li>
+<li><b>Message filters</b>: <b class="ui">All messages</b>, or <b class="ui">Only matching messages</b> with your rules. See <a href="../filters/">Message filters</a>.</li>
+<li><b>Payload</b>: JSON, a custom JSON template, raw text or form data. See <a href="../payloads/">Payload formats</a>.</li>
+<li><b>Regex extraction</b> (optional): named values such as <code>amount</code>. See <a href="../regex-extraction/">Extract values with regex</a>.</li>
+<li><b>Retry &amp; timeout</b>: <b class="ui">Timeout (seconds)</b>, <b class="ui">Maximum retries</b> and <b class="ui">First retry delay (seconds)</b>. The defaults (15 s, 5 retries, 30 s) suit most servers.</li>
+<li><b>Review</b>: check the summary, use <b class="ui">Edit</b> to jump back to any step, leave <b class="ui">Enable webhook</b> on, tap <b class="ui">Send test request</b>, then <b class="ui">Save webhook</b>.</li>
+</ol>
+<h2>Test your webhook</h2>
+<p><b class="ui">Test</b> (on the webhook card, the detail screen or the Review step) sends a sample SMS with your real headers and format. The result shows success or failure, the HTTP status, the response time, the request body and your server's response. Tests aren't saved as deliveries, and the request carries <code>X-SmsWebhook-Test: true</code>.</p>
+<div class="note"><p>No server yet? Use a free request inspector such as <a href="https://webhook.site" rel="noopener">webhook.site</a>: paste its HTTPS URL as the webhook URL and tap <b class="ui">Test</b> to see exactly what arrives.</p></div>
+<h2>Manage webhooks</h2>
+<ul>
+<li>The switch on each card enables or disables the webhook.</li>
+<li><b class="ui">⋮ → Duplicate</b> copies a webhook. The copy starts disabled, so nothing is sent twice by surprise.</li>
+<li><b class="ui">⋮ → Delete</b> removes the webhook and its delivery history.</li>
+<li>Tap a card to open its detail screen: full configuration, counters, <b class="ui">Retry failed</b> and the delivery history.</li>
+</ul></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/webhooks.jpg" alt="Webhooks list with three webhook cards" width="480" height="935" loading="lazy"><figcaption>Each card shows the URL, status and delivered/failed counts.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/review.jpg" alt="Review step of the webhook editor" width="480" height="935" loading="lazy"><figcaption>Step 7: review everything before saving.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a href="../getting-started/"><small>← Previous</small>Getting started</a><a class="next" href="../filters/"><small>Next →</small>Message filters</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

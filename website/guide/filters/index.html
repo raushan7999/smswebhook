@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Message filters · SMS Webhook</title>
+<meta name="description" content="Forward only the messages you need with sender, keyword, regex, SIM and time rules.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/filters/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/filters/">
+<meta property="og:title" content="Message filters · SMS Webhook">
+<meta property="og:description" content="Forward only the messages you need with sender, keyword, regex, SIM and time rules.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Message filters</p>
+<h1>Message filters</h1>
+<p class="meta">Forward only the messages you need with sender, keyword, regex, SIM and time rules.</p>
+<div class="split"><div><h2>All messages or only matching ones</h2>
+<p>In step 3 of the editor choose <b class="ui">All messages</b> (every SMS goes to this webhook) or <b class="ui">Only matching messages</b>. Each webhook has its own rules, and one SMS can match several webhooks.</p>
+<h2>Build your rules</h2>
+<ol class="steps">
+<li>Under <b class="ui">Match</b>, choose <b class="ui">All conditions (AND)</b> or <b class="ui">Any condition (OR)</b>.</li>
+<li>For each condition pick a <b class="ui">Field</b>, an <b class="ui">Operator</b> and a <b class="ui">Value</b>.</li>
+<li><b class="ui">+ Condition</b> adds a rule; <b class="ui">+ Group</b> adds a nested group with its own AND/OR (up to three levels).</li>
+<li>Tick <b class="ui">NOT — invert this condition</b> (or group) to match the opposite.</li>
+<li>Type a real message into <b class="ui">Try it with a sample SMS</b>: the badge shows <b class="ui">Would be forwarded</b> or <b class="ui">Would be filtered out</b> as you edit.</li>
+</ol>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Operators</th></tr>
+<tr><td>Sender, Message</td><td>Equals, Does not equal, Contains, Does not contain, Starts with, Ends with, Matches regex, Contains any keyword, Contains all keywords</td></tr>
+<tr><td>SIM slot (1, 2), Subscription ID, Message length</td><td>=, ≠, &gt;, &lt;, Between</td></tr>
+<tr><td>Time received (HH:mm)</td><td>After, Before, Between (a window like 22:00–06:00 is allowed)</td></tr>
+</table></div>
+<p>Text rules ignore upper/lower case unless you tick <b class="ui">Case-sensitive</b>. Keyword lists take one keyword per line.</p>
+<h2>Examples</h2>
+<div class="tablewrap"><table>
+<tr><th>Goal</th><th>Rules</th></tr>
+<tr><td>HDFC credit alerts</td><td><code>Sender contains HDFC</code> AND <code>Message contains credited</code></td></tr>
+<tr><td>Any of three banks</td><td>OR group: <code>Sender contains HDFC</code>, <code>ICICI</code>, <code>SBI</code></td></tr>
+<tr><td>Credits or debits</td><td><code>Message contains any keyword</code>: credited, debited</td></tr>
+<tr><td>Six-digit OTPs</td><td><code>Message matches regex \b\d{6}\b</code></td></tr>
+<tr><td>Everything except promotions</td><td><code>Sender starts with AD-</code> with NOT</td></tr>
+<tr><td>Only SIM 2 at night</td><td><code>SIM slot = 2</code> AND <code>Time received between 22:00 and 06:00</code></td></tr>
+</table></div>
+<h2>Regular expressions</h2>
+<ul>
+<li>A regex matches anywhere in the text. Use <code>^</code> and <code>$</code> to match the whole text.</li>
+<li>Tap <b class="ui">Test regex</b> under a regex condition to try it on sample text; you'll see the match and each capture group.</li>
+<li>An invalid pattern can't be saved, and the error tells you what is wrong. Patterns that take too long are stopped, so a mistake can't slow the app down.</li>
+</ul></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/filters.jpg" alt="Filter editor with an OR group of sender conditions" width="480" height="935" loading="lazy"><figcaption>An OR group: HDFC, ICICI or SBI.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/filters-sample.jpg" alt="Sample SMS showing Would be forwarded" width="480" height="935" loading="lazy"><figcaption>Try the rules on a sample SMS.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a href="../add-a-webhook/"><small>← Previous</small>Add a webhook</a><a class="next" href="../payloads/"><small>Next →</small>Payload formats</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

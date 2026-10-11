@@ -1,0 +1,64 @@
+=== Play Console → Grow → Store presence → Main store listing → English (India) (en-IN) · DEFAULT LANGUAGE ===
+Copy each block into the matching box. Character counts checked 2026-10-07 for 1.0.0.
+Google's metadata policy: no emoji, no ranking or price words ("#1", "best", "free") in the app name.
+
+--- App name (max 30) --- this text: 24
+SMS Webhook: Forward SMS
+
+(Fallbacks if review objects: "SMS Webhook" (11) or "SMS to Webhook Forwarder" (24))
+The name inside the app (under the icon) is "SMS Webhook".
+
+--- Short description (max 80) --- this text: 75
+Forward SMS to your webhook or API, with filters, JSON payloads and retries
+
+--- Full description (max 4000) --- this text: 3366
+SMS Webhook forwards the SMS your phone receives to your own server, app or automation tool over HTTPS. Use it to receive payment and bank alerts in your backend, relay OTPs to a test system, log delivery updates in a CRM, or trigger workflows in tools that accept webhooks. Every message is saved on the phone first, so nothing is lost when the internet is down.
+
+Multiple webhooks, each with its own rules
+• Add as many webhooks as you need: payment server, CRM, internal system.
+• Send every SMS to a webhook, or only the messages that match its filters.
+• One SMS can go to several webhooks at the same time.
+• Enable, disable, duplicate, edit and test each webhook separately.
+
+Powerful message filters
+• Sender: equals, contains, starts with, ends with or regex (for example VM-HDFCBK).
+• Message: contains, does not contain, equals, starts with, ends with or regex.
+• Keyword lists with ANY or ALL matching, case-sensitive or not.
+• SIM slot, message length and time of day.
+• Combine rules with AND, OR and NOT, and group them.
+• Try your filters on a sample SMS before saving, and test any regex.
+
+Payload exactly the way your server wants it
+• JSON with the fields you choose and your own field names (from, content, receivedAt…).
+• Custom JSON template with {{sender}}, {{message}}, {{timestamp}} and more.
+• Plain text, for example "HDFCBK: Your OTP is 123456".
+• Form data (application/x-www-form-urlencoded).
+• Fields: message ID, sender, message, sent time, received time, SIM slot, subscription ID, device model.
+• Custom headers, Bearer token, Basic auth and API key headers.
+
+Extract values with regex
+Pull the amount, account number, OTP or any other value out of the message with a regex capture group and send it as its own field, for example "amount": "5,000". A live preview shows the result on a sample SMS.
+
+Reliable delivery
+• Deliveries run in the background with Android WorkManager, also after a restart.
+• No internet? Messages wait and are delivered automatically when the connection returns.
+• Automatic retries with exponential backoff for timeouts, connection errors and 5xx responses. You choose the number of retries, the delay and the timeout.
+• Each message is sent to each webhook once. Duplicate SMS broadcasts are detected, and every request carries an idempotency key.
+• Optional: deliver only on Wi-Fi.
+
+History and logs
+• Message history with search and filters: delivered, failed, pending, filtered.
+• For every message: which webhooks matched, attempts, HTTP status, response and error.
+• Delivery log with request, status, duration and time. Retry failed deliveries with one tap.
+• Keep history for 7, 30 or 365 days, a number of messages (100 to 100,000), or forever.
+
+Private and secure
+• No account and no sign-up. No ads, no analytics.
+• SMS are stored only on your phone and sent only to the webhooks you add.
+• HTTPS only. Secret header values are encrypted with the Android Keystore and never shown in logs.
+• Phone backup is turned off for app data. Export your webhook settings when you choose, with or without secrets.
+
+Permissions
+The app needs one SMS permission, "Receive SMS", to see new messages as they arrive. It cannot read your existing inbox and never sends SMS.
+
+Note: SMS Webhook is not a messaging app. Your messages stay in your normal SMS app; SMS Webhook only forwards copies to your webhooks.

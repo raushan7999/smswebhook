@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Getting started · SMS Webhook</title>
+<meta name="description" content="Install the app, allow SMS, and get the service running reliably.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/getting-started/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/getting-started/">
+<meta property="og:title" content="Getting started · SMS Webhook">
+<meta property="og:description" content="Install the app, allow SMS, and get the service running reliably.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Getting started</p>
+<h1>Getting started</h1>
+<p class="meta">Install the app, allow SMS, and get the service running reliably.</p>
+<div class="split"><div><h2>Install and allow SMS</h2>
+<ol class="steps">
+<li>Install SMS Webhook from Google Play and open it. The <b class="ui">Home</b> screen shows a red <b class="ui">SMS permission required</b> card.</li>
+<li>Tap <b class="ui">Grant permission</b> and allow <b>SMS</b>. This is the only SMS permission the app asks for: it can receive new SMS, but it can't read your inbox or send messages.</li>
+<li>The card disappears and the status changes to <b class="ui">Service active</b>, with <b class="ui">SMS listener: Active</b> and your internet status.</li>
+<li>Add your first webhook: open <b class="ui">Webhooks</b> and tap <b class="ui">Add webhook</b>. See <a href="../add-a-webhook/">Add a webhook</a>.</li>
+</ol>
+<div class="note"><p>Until you add a webhook, incoming SMS are still saved and shown as <b class="ui">Filtered</b>, so you can see that reception works.</p></div>
+<h2>If the permission is blocked</h2>
+<ul>
+<li>If you tapped <b>Don't allow</b> twice, the card shows <b class="ui">Open app settings</b>. Open it, choose <b>Permissions → SMS → Allow</b>.</li>
+<li>On Android 13 and newer, if the app was installed from a file instead of Google Play, the SMS switch may be greyed out. In <b>App info</b>, tap <b>⋮ → Allow restricted settings</b>, then allow SMS.</li>
+</ul>
+<h2>Keep it running in the background</h2>
+<p>Some phones (Samsung, Xiaomi, Oppo, Vivo and others) pause background apps to save battery. If <b class="ui">Battery optimisation is on</b> appears on Home, tap <b class="ui">Battery settings</b> and set SMS Webhook to <b>Unrestricted</b> / <b>Don't optimise</b>. On Samsung also check that the app is not in <b>Sleeping apps</b>.</p>
+<h2>Pause forwarding</h2>
+<p>Turn off <b class="ui">Forward incoming SMS</b> on Home (or <b class="ui">SMS listener</b> in Settings). The app then ignores new SMS completely until you turn it back on.</p></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/home.jpg" alt="Home screen with Service active, counters and recent messages" width="480" height="935" loading="lazy"><figcaption>Home: service status, counters and the newest messages.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a class="next" href="../add-a-webhook/"><small>Next →</small>Add a webhook</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

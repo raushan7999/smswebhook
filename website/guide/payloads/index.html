@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Payload formats · SMS Webhook</title>
+<meta name="description" content="Choose JSON, a custom template, plain text or form data, and name your fields.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/payloads/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/payloads/">
+<meta property="og:title" content="Payload formats · SMS Webhook">
+<meta property="og:description" content="Choose JSON, a custom template, plain text or form data, and name your fields.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top sub">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../../#features">Features</a>
+      <a href="../../#how">How it works</a>
+      <a href="../../#screens">Screens</a>
+      <a href="../../#video">Video</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../guide/">Guide</a>
+      <a href="../../support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap doc guide">
+<p class="crumbs"><a href="../../">Home</a> › <a href="../">How-to guide</a> › Payload formats</p>
+<h1>Payload formats</h1>
+<p class="meta">Choose JSON, a custom template, plain text or form data, and name your fields.</p>
+<div class="split"><div><h2>Choose a format</h2>
+<div class="tablewrap"><table>
+<tr><th>Body format</th><th>Content-Type</th><th>Use it when</th></tr>
+<tr><td><b class="ui">JSON</b></td><td><code>application/json</code></td><td>Most APIs. Pick fields and rename them.</td></tr>
+<tr><td><b class="ui">Custom JSON template</b></td><td><code>application/json</code></td><td>Your API expects a specific shape or nesting.</td></tr>
+<tr><td><b class="ui">Raw text</b></td><td><code>text/plain</code></td><td>Chat or logging tools that accept plain text.</td></tr>
+<tr><td><b class="ui">Form data</b></td><td><code>application/x-www-form-urlencoded</code></td><td>Classic form handlers (PHP <code>$_POST</code>).</td></tr>
+</table></div>
+<h2>JSON fields</h2>
+<p>Tick the fields to send and type the name your server expects, for example <code>from</code> instead of <code>sender</code>.</p>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Example</th></tr>
+<tr><td>Message ID</td><td><code>"3f6c…"</code> stable fingerprint of the SMS, useful for de-duplication</td></tr>
+<tr><td>Sender, Message</td><td><code>"VM-HDFCBK"</code>, the full text (long SMS joined)</td></tr>
+<tr><td>Timestamp (sent), Received at</td><td><code>"2026-10-05T20:30:00+05:30"</code></td></tr>
+<tr><td>SIM slot, Subscription ID</td><td><code>1</code>, <code>3</code></td></tr>
+<tr><td>Device model</td><td><code>"Samsung SM-A176B (Android 16)"</code> (off by default)</td></tr>
+</table></div>
+<pre><code>{&quot;sender&quot;:&quot;VM-HDFCBK&quot;,&quot;message&quot;:&quot;Rs 5,000.00 credited to A/c XX1234 …&quot;,&quot;timestamp&quot;:&quot;2026-10-05T20:30:00+05:30&quot;}</code></pre>
+<h2>Templates</h2>
+<p>With <b class="ui">Custom JSON template</b> or <b class="ui">Raw text</b>, write the body yourself with placeholders:</p>
+<pre><code>{
+  &quot;event&quot;: &quot;sms.received&quot;,
+  &quot;data&quot;: {
+    &quot;from&quot;: &quot;{{sender}}&quot;,
+    &quot;text&quot;: &quot;{{message}}&quot;,
+    &quot;time&quot;: &quot;{{timestamp}}&quot;,
+    &quot;amount&quot;: &quot;{{regex.amount}}&quot;
+  }
+}</code></pre>
+<ul>
+<li>Variables: <code>{{sender}}</code>, <code>{{message}}</code>, <code>{{timestamp}}</code>, <code>{{received_at}}</code>, <code>{{id}}</code>, <code>{{sim_slot}}</code>, <code>{{subscription_id}}</code>, <code>{{device}}</code> and <code>{{regex.name}}</code> for extracted values.</li>
+<li>In JSON templates values are escaped for you; keep placeholders inside quotes. The app checks that the template produces valid JSON before saving.</li>
+<li>Raw text example: <code>{{sender}}: {{message}}</code> → <code>VM-HDFCBK: Rs 5,000.00 credited…</code></li>
+</ul>
+<p><b class="ui">Request body preview</b> under the sample SMS shows the exact body your server will receive.</p></div><div class="shots-col"><figure class="shot"><img src="../../assets/img/guide/payload-fields.jpg" alt="Payload step with JSON fields and names" width="480" height="935" loading="lazy"><figcaption>Pick fields and name them.</figcaption></figure><figure class="shot"><img src="../../assets/img/guide/payload.jpg" alt="Request body preview with amount and account" width="480" height="935" loading="lazy"><figcaption>The exact request body, live.</figcaption></figure></div></div>
+<nav class="pager" aria-label="More tutorials"><a href="../filters/"><small>← Previous</small>Message filters</a><a class="next" href="../regex-extraction/"><small>Next →</small>Extract values with regex</a><a class="up" href="../">All tutorials</a></nav>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../../"><img src="../../assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="../../assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="../../assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="../../#features">Features</a></li>
+          <li><a href="../../#how">How it works</a></li>
+          <li><a href="../../#video">Video</a></li>
+          <li><a href="../../guide/">How-to guide</a></li>
+          <li><a href="../../guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="../../support/">Support</a></li>
+          <li><a href="../../privacy/">Privacy policy</a></li>
+          <li><a href="../../terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

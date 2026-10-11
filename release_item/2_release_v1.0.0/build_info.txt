@@ -1,0 +1,33 @@
+SMS Webhook 1.0.0 (versionCode 10000) — release build
+=====================================================
+Built        2026-10-10 (rebuilt with the final green icon), ./gradlew :app:clean :app:testDebugUnitTest :app:lintRelease :app:bundleRelease :app:assembleRelease
+Package      com.bestcallerapp.smswebhook   minSdk 26 (Android 8.0)   targetSdk 37   compileSdk 37
+Signed with  1_signing_key/smswebhook-release.jks, alias smswebhook (upload key; Play App Signing re-signs for users)
+
+Files
+  sms-webhook-v1.0.0-release.aab   5.5 MB   ← upload to Google Play
+      SHA-256 e5f9f589c942d57d917533130fb9beee0fd769b9529420e0213376f25873193a
+  sms-webhook-v1.0.0-release.apk   2.2 MB   ← install on phones for testing (adb install / sideload)
+      SHA-256 2c8cca844e92b77575db8b43b7a948208b41f3410d80fd877778a4f97f862217
+  mapping.txt                      R8 mapping for de-obfuscating crash stack traces (also embedded in the .aab)
+
+Upload certificate (apksigner verify --print-certs)
+  DN       CN=Best Caller, OU=Mobile, O=Best Caller, L=Bengaluru, ST=Karnataka, C=IN
+  SHA-1    03:4B:7F:65:B3:56:4D:2D:FD:60:2B:7A:97:64:6C:54:9D:18:66:3A
+  SHA-256  92:23:11:05:66:8E:94:FE:58:28:A8:9F:48:53:16:57:EA:0F:97:0E:1B:1E:83:C8:8E:DD:EF:30:69:38:45:F6
+
+Permissions in the manifest (aapt2 dump badging)
+  RECEIVE_SMS            the app's only SMS permission (no READ_SMS, no SEND_SMS)
+  INTERNET, ACCESS_NETWORK_STATE
+  FOREGROUND_SERVICE     expedited WorkManager jobs on Android 11 and lower
+  WAKE_LOCK, RECEIVE_BOOT_COMPLETED, DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION   added by WorkManager/AndroidX
+
+Checks run on this build
+  [x] 63 JVM unit + pipeline tests pass
+  [x] 7 instrumented tests pass on a Samsung Galaxy A17 (Android 16): Room pipeline, Keystore, schema, main-safety
+  [x] lintRelease: 0 errors
+  [x] apksigner verify: v2/v3 signature valid, upload certificate above
+  [x] zipalign -c -P 16 4: OK (16 KB page-size aligned)
+  [x] R8 build (same config, "qa" variant) run on the Galaxy A17: wizard, filters JSON, Keystore secrets, test webhook
+  [x] Debug build on the Galaxy A17: SMS receiver active, test request delivered to a local server (HTTP 200)
+  [ ] Real incoming SMS forwarded end to end on a phone — do this once before production (PLAY_STORE_DEPLOYMENT.md §A)

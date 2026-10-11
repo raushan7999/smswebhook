@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SMS Webhook – Forward SMS to your webhook or API</title>
+<meta name="description" content="Free Android app that forwards incoming SMS to your own webhook or API, with filters, JSON payloads, regex extraction and automatic retries.">
+<link rel="canonical" href="https://smswebhook.bestcallerapp.com/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/icon-192.png">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SMS Webhook">
+<meta property="og:url" content="https://smswebhook.bestcallerapp.com/">
+<meta property="og:title" content="SMS Webhook – Forward SMS to your webhook or API">
+<meta property="og:description" content="Free Android app that forwards incoming SMS to your own webhook or API, with filters, JSON payloads, regex extraction and automatic retries.">
+<meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"SMS Webhook","alternateName":"SMS Webhook: Forward SMS",
+ "description":"Forward incoming SMS to your own webhook or API, with filters, JSON payloads, regex extraction and retries.",
+ "url":"https://smswebhook.bestcallerapp.com/","image":"https://smswebhook.bestcallerapp.com/assets/img/icon-512.png","operatingSystem":"Android 8.0 or later",
+ "applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},
+ "installUrl":"https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook","publisher":{"@type":"Organization","name":"Best Caller","url":"https://bestcallerapp.com"}}
+</script>
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/icon-192.png" alt="" width="36" height="36">SMS Webhook</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="ico open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="ico close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#screens">Screens</a>
+      <a href="#video">Video</a>
+      <a href="#faq">FAQ</a>
+      <a href="guide/">Guide</a>
+      <a href="support/">Support</a>
+      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill"><img src="assets/img/icon-192.png" alt="" width="24" height="24"><b>Android app</b> · Free · No ads</span>
+      <h1 id="hero-title">Your SMS, <span>delivered</span> to your server.</h1>
+      <p class="lead">SMS Webhook forwards the SMS your phone receives to your own webhook or API: bank alerts, OTPs, order updates. Choose which messages go where, shape the JSON, and let the app retry until it's delivered.</p>
+      <div class="install">
+        <div class="install-main">
+          <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+          <span class="caption">Free · Android 8.0 and newer</span>
+        </div>
+        <figure class="qr">
+          <span class="qr-code"><img src="assets/img/play-qr.svg" alt="QR code that opens SMS Webhook on Google Play" width="96" height="96"></span>
+          <figcaption><strong>Scan to install</strong>Point your phone camera at the code</figcaption>
+        </figure>
+      </div>
+      <div class="hero-links">
+        <a class="btn" href="#how"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5.5 3.5-5.5 3.5z"/></svg>See how it works</a>
+        <ul class="trust" aria-label="Highlights">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>No account</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>HTTPS only</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Works offline</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="showcase">
+      <img class="back" src="assets/img/app/webhooks-480.webp" srcset="assets/img/app/webhooks-280.webp 280w, assets/img/app/webhooks-480.webp 480w, assets/img/app/webhooks-720.webp 720w" sizes="(max-width: 900px) 52vw, 300px" alt="Webhooks screen with three webhooks: CRM, Internal Server and OTP Relay" width="720" height="1365">
+      <img class="front" src="assets/img/app/home-480.webp" srcset="assets/img/app/home-280.webp 280w, assets/img/app/home-480.webp 480w, assets/img/app/home-720.webp 720w" sizes="(max-width: 900px) 64vw, 370px" alt="Home screen: service active, 12 messages, 17 delivered, 2 failed, recent bank and OTP messages" width="720" height="1365">
+    </div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-title">From SMS to your API in three steps</h2>
+      <p>Everything happens on your phone. Messages are stored first, so nothing is lost when the network drops.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step"><h3>An SMS arrives</h3><p>The app receives it the moment your phone does, saves it, and ignores duplicate broadcasts.</p></div>
+      <div class="flow-step"><h3>Your rules decide</h3><p>Each webhook checks the sender, keywords, regex, SIM or time. One message can match several webhooks.</p></div>
+      <div class="flow-step"><h3>Your server gets JSON</h3><p>The app sends an HTTPS POST in your format, records the result, and retries automatically if it fails.</p></div>
+    </div>
+    <div class="request">
+      <div><h3>What your server receives</h3><pre><code>POST /webhooks/sms HTTP/1.1
+Host: payments.example.com
+Content-Type: application/json; charset=utf-8
+Authorization: Bearer ••••••••
+X-Idempotency-Key: 42-3-1791212400412
+
+{
+  &quot;sender&quot;: &quot;VM-HDFCBK&quot;,
+  &quot;message&quot;: &quot;Rs 5,000.00 credited to A/c XX1234 …&quot;,
+  &quot;timestamp&quot;: &quot;2026-10-05T20:30:00+05:30&quot;,
+  &quot;amount&quot;: &quot;5,000.00&quot;,
+  &quot;account&quot;: &quot;XX1234&quot;
+}</code></pre></div>
+      <div><h3>Built for real integrations</h3>
+        <ul class="checks">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Your own field names, or a custom JSON template</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Extracted values such as <code>amount</code>, <code>account</code> or <code>otp</code></span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Bearer token, Basic auth or API-key headers, encrypted on the phone</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>An idempotency key on every request, for safe de-duplication</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Any 2xx response marks the message delivered</span></li>
+        </ul>
+        <p style="margin-top:16px"><a class="btn" href="guide/receive-on-your-server/">Developer guide <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="tinted" aria-labelledby="features-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Features</span>
+      <h2 id="features-title">Exactly the messages you need, in exactly your format</h2>
+      <p>Set it up once. The app keeps forwarding in the background, even after a restart.</p>
+    </div>
+    <div class="feature-lead">
+      <div class="text">
+        <div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16l-6 7.5V19l-4-2v-4.5z"/></svg></div>
+        <span class="eyebrow">Smart filters</span>
+        <h3 class="h2">Rules for every webhook</h3>
+        <p>Send all messages to one webhook and only bank credits to another. Match the sender, words in the message, a keyword list (any or all), a regular expression, the SIM slot, the length or the time of day, and combine them with AND, OR and NOT. Try your rules on a sample SMS before you save.</p>
+      </div>
+      <figure class="stamp-figure">
+        <img src="assets/img/app/filters-480.webp" srcset="assets/img/app/filters-280.webp 280w, assets/img/app/filters-480.webp 480w, assets/img/app/filters-720.webp 720w" sizes="(max-width: 900px) 70vw, 300px" alt="Filter editor: an OR group of sender conditions HDFC, ICICI and SBI" width="720" height="1365" loading="lazy">
+      </figure>
+    </div>
+    <div class="feature-grid">
+      <article class="feature">
+        <div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg></div>
+        <h3>Payload your way</h3>
+        <p>Send the format your server already understands.</p>
+        <ul class="checks">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>JSON with the fields and names you choose</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Custom JSON template with <code>{{sender}}</code>, <code>{{message}}</code>…</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Plain text or form data</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Regex extraction: amount, account, OTP as their own fields</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Live preview of the exact request body</span></li>
+        </ul>
+      </article>
+      <article class="feature">
+        <div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg></div>
+        <h3>Reliable delivery</h3>
+        <p>Built to deliver every message, once.</p>
+        <ul class="checks">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Saved on the phone before anything is sent</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Waits for internet, then delivers automatically</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Retries with increasing delays; you set the limits</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Duplicate SMS detected; idempotency key on every request</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Optional: send only on Wi-Fi</span></li>
+        </ul>
+      </article>
+      <article class="feature">
+        <div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></div>
+        <h3>History and logs</h3>
+        <p>See what happened to every message.</p>
+        <ul class="checks">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Search and filter: delivered, failed, pending, filtered</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Per webhook: attempts, HTTP status, response, error</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Delivery log with duration and time</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Retry failed deliveries with one tap</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Keep history for days, a number of messages, or forever</span></li>
+        </ul>
+      </article>
+    </div>
+    <p class="more-link"><a class="btn" href="guide/">How-to guide for every feature <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+<section id="use-cases" aria-labelledby="cases-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Use cases</span>
+      <h2 id="cases-title">What people forward</h2>
+    </div>
+    <div class="cases">
+      <div class="case"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></div><h3>Payment alerts</h3><p>Send bank credit and debit SMS to your accounting or order system, with the amount extracted.</p><code>Sender contains HDFC</code></div>
+      <div class="case"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg></div><h3>OTP for testing</h3><p>Relay one-time passwords from a test phone to your QA automation.</p><code>Message matches \b\d{6}\b</code></div>
+      <div class="case"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><h3>CRM logging</h3><p>Log every message from your business number in your CRM, with your field names.</p><code>All messages</code></div>
+      <div class="case"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Automation</h3><p>Trigger workflows in tools that accept webhooks, such as n8n, Zapier or Make.</p><code>Keywords: order, delivered</code></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens" class="tinted" aria-labelledby="screens-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Screens</span>
+      <h2 id="screens-title">See the app</h2>
+      <p>Real screens from SMS Webhook. The data is a demo set; your messages never leave your phone except to your own webhooks.</p>
+    </div>
+    <div class="screens">
+      <figure class="featured-shot">
+        <figcaption><h3>Exactly what your server receives</h3><p>The editor renders the request body from a sample SMS while you set up the webhook, extracted values included.</p></figcaption>
+        <div class="frame"><img src="assets/img/app/payload-480.webp" srcset="assets/img/app/payload-280.webp 280w, assets/img/app/payload-480.webp 480w, assets/img/app/payload-720.webp 720w" sizes="(max-width: 640px) 80vw, 330px" alt="Payload step with a sample HDFC SMS and the JSON request preview including amount and account" width="720" height="1365" loading="lazy"></div>
+      </figure>
+      <ul class="shot-grid">
+        <li><figure><img src="assets/img/app/webhooks-480.webp" srcset="assets/img/app/webhooks-280.webp 280w, assets/img/app/webhooks-480.webp 480w, assets/img/app/webhooks-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Webhooks list with delivered and failed counts" width="720" height="1365" loading="lazy"><figcaption><strong>Multiple webhooks</strong>Each with its own rules and counts.</figcaption></figure></li>
+        <li><figure><img src="assets/img/app/extraction-sample-480.webp" srcset="assets/img/app/extraction-sample-280.webp 280w, assets/img/app/extraction-sample-480.webp 480w, assets/img/app/extraction-sample-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Regex extraction showing amount 5,000.00 and account XX1234" width="720" height="1365" loading="lazy"><figcaption><strong>Regex extraction</strong>Values pulled out of the message.</figcaption></figure></li>
+        <li><figure><img src="assets/img/app/deliveries-480.webp" srcset="assets/img/app/deliveries-280.webp 280w, assets/img/app/deliveries-480.webp 480w, assets/img/app/deliveries-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Message detail with CRM sent, OTP Relay filtered and Payment Server sent" width="720" height="1365" loading="lazy"><figcaption><strong>Every delivery</strong>Sent, filtered or failed, per webhook.</figcaption></figure></li>
+        <li><figure><img src="assets/img/app/messages-480.webp" srcset="assets/img/app/messages-280.webp 280w, assets/img/app/messages-480.webp 480w, assets/img/app/messages-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Message history with delivered and failed messages" width="720" height="1365" loading="lazy"><figcaption><strong>Message history</strong>Search and filter every SMS.</figcaption></figure></li>
+        <li><figure><img src="assets/img/app/logs-480.webp" srcset="assets/img/app/logs-280.webp 280w, assets/img/app/logs-480.webp 480w, assets/img/app/logs-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Delivery logs with HTTP 200 OK, attempt and duration" width="720" height="1365" loading="lazy"><figcaption><strong>Delivery logs</strong>Status, duration and time.</figcaption></figure></li>
+        <li><figure><img src="assets/img/app/settings-480.webp" srcset="assets/img/app/settings-280.webp 280w, assets/img/app/settings-480.webp 480w, assets/img/app/settings-720.webp 720w" sizes="(max-width: 640px) 62vw, 200px" alt="Settings: SMS listener, retention and delivery defaults" width="720" height="1365" loading="lazy"><figcaption><strong>Settings</strong>Retention, retries and privacy.</figcaption></figure></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video" aria-labelledby="video-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Video</span>
+      <h2 id="video-title">SMS Webhook in 39 seconds</h2>
+    </div>
+    <div class="video-layout">
+      <div class="video-frame">
+        <video controls preload="none" playsinline poster="assets/img/video-poster.webp" width="1280" height="720" aria-label="SMS Webhook product video, 39 seconds">
+          <source src="assets/promo-720p.mp4" type="video/mp4">
+          <a href="assets/promo-720p.mp4">Watch the video (MP4)</a>
+        </video>
+      </div>
+      <ol class="how-steps">
+        <li><div><h3>Allow SMS</h3><p>Grant the one permission the app needs: receive SMS.</p></div></li>
+        <li><div><h3>Add a webhook</h3><p>Paste your HTTPS URL, pick the messages and the format, and tap Test.</p></div></li>
+        <li><div><h3>Done</h3><p>New SMS are forwarded in the background. Check History and Logs anytime.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="free" aria-labelledby="free-title" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="free">
+      <div class="free-copy">
+        <h2 id="free-title" class="h2">Everything included. <span>Free.</span></h2>
+        <p>Unlimited webhooks, filters, payload formats, extraction, retries and history. No plans, no limits.</p>
+      </div>
+      <ul class="free-points">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b>No subscription</b><span>No in-app purchases at all.</span></div></li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b>No ads</b><span>No advertising or analytics SDKs.</span></div></li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b>No account</b><span>Install, allow SMS, add a webhook.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="privacy" class="tinted" aria-labelledby="privacy-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Privacy</span>
+      <h2 id="privacy-title">Your messages go only where you send them</h2>
+      <p>We don't run a server that receives your SMS. The app sends them only to the webhook URLs you add.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><h3>No account</h3><p>No sign-up, no email, no cloud service from us.</p></div>
+      <div class="trust-item"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div><h3>Stored on your phone</h3><p>History and logs stay on the device. Phone backup is turned off for app data.</p></div>
+      <div class="trust-item"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><h3>Secrets encrypted</h3><p>API keys and tokens are encrypted with the Android Keystore and never shown in logs.</p></div>
+      <div class="trust-item"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>HTTPS only</h3><p>Requests use verified HTTPS. Redirects to other hosts are never followed.</p></div>
+    </div>
+    <div class="perm">
+      <h3>Permissions, and why the app asks</h3>
+      <dl>
+        <div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg>Receive SMS</dt><dd>To see new SMS as they arrive. The app can't read your existing inbox and never sends SMS.</dd></div>
+        <div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></svg>Internet and network state</dt><dd>To send to your webhooks and wait for a connection when you're offline.</dd></div>
+      </dl>
+      <p class="perm-foot">Full details are in the <a href="privacy/">privacy policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq-layout">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2 id="faq-title">Questions and answers</h2>
+      <p>Step-by-step tutorials are in the <a href="guide/">how-to guide</a>. Still stuck? <a href="support/">Contact support</a>.</p>
+    </div>
+    <div class="faq">
+<details><summary>Is SMS Webhook free?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>Yes. There is no premium plan, subscription or in-app purchase, and the app shows no ads.</p></details>
+<details><summary>Do I need an account or a server from you?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>No. There is no sign-up, and we don't run a server that receives your messages. You add the URL of your own server, automation tool or request inspector, and the app sends the SMS there.</p></details>
+<details><summary>Which messages are forwarded?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>Only the ones you choose. Each webhook either receives every SMS or only messages that match its rules: sender, keywords, regex, SIM, length or time, combined with AND, OR and NOT. One SMS can go to several webhooks.</p></details>
+<details><summary>What happens when the phone is offline?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>Every SMS is saved on the phone first. Deliveries wait and are sent automatically when the connection returns. Failed requests are retried with increasing delays.</p></details>
+<details><summary>Can a message be sent twice?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>Duplicate SMS broadcasts are detected, and each message is sent to each webhook once. If your server accepted a request but its reply was lost, the app retries; every request carries an <code>X-Idempotency-Key</code> so your server can ignore the repeat.</p></details>
+<details><summary>Does it read my old messages or send SMS?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>No. The app only receives new SMS as they arrive. It cannot read your inbox and never sends SMS.</p></details>
+<details><summary>Does it work with RCS or WhatsApp messages?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>No. Only SMS are forwarded. RCS chat messages and messaging apps are not SMS.</p></details>
+<details><summary>Can it delete the SMS after forwarding?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>No. Android only lets the default SMS app delete messages, and SMS Webhook is not an SMS app. Your messages stay in your messaging app.</p></details>
+<details><summary>Which Android versions are supported?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></summary><p>Android 8.0 and newer, on phones that can receive SMS. Dual-SIM phones are supported.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="download" aria-labelledby="download-title" style="border-top:0;padding-top:0">
+  <div class="wrap">
+    <div class="download">
+      <div class="copy">
+        <img class="appicon" src="assets/img/icon-192.png" alt="" width="64" height="64" loading="lazy">
+        <h2 id="download-title" class="h2">Start forwarding in two minutes</h2>
+        <p>Download SMS Webhook for Android. Free, for Android 8.0 and newer.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <figure class="qr">
+        <span class="qr-code"><img src="assets/img/play-qr.svg" alt="QR code that opens SMS Webhook on Google Play" width="168" height="168" loading="lazy"></span>
+        <figcaption><strong>Scan to install</strong>SMS Webhook</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="./"><img src="assets/img/icon-192.png" alt="" width="36" height="36" loading="lazy">SMS Webhook</a>
+        <p class="by">A product by <a href="https://bestcallerapp.com" rel="noopener"><img src="assets/img/bestcaller-logo.svg" alt="" width="24" height="24" loading="lazy">Best Caller</a></p>
+        <p>Forward SMS to your webhook or API.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook" rel="noopener"><img src="assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#video">Video</a></li>
+          <li><a href="guide/">How-to guide</a></li>
+          <li><a href="guide/receive-on-your-server/">Developer guide</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Help and legal">
+        <h2>Help</h2>
+        <ul>
+          <li><a href="support/">Support</a></li>
+          <li><a href="privacy/">Privacy policy</a></li>
+          <li><a href="terms/">Terms of use</a></li>
+          <li><a href="mailto:smswebhook@bestcallerapp.com">Email us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Best Caller · Bengaluru, India</span>
+      <span>SMS Webhook is not affiliated with any bank or mobile operator.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
