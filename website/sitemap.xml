@@ -18,7 +18,7 @@
       <video:content_loc>https://smswebhook.bestcallerapp.com/assets/promo-720p.mp4</video:content_loc>
       <video:player_loc>https://www.youtube.com/embed/eB-wv8JCQBQ</video:player_loc>
       <video:duration>39</video:duration>
-      <video:publication_date>2026-10-15</video:publication_date>
+      <video:publication_date>2026-10-15T22:30:00+05:30</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>

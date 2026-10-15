@@ -22,7 +22,7 @@ UPDATED = "10 October 2026"
 VIDEO_SECONDS = 39
 APP_VERSION = "1.0.0"
 YOUTUBE_PROMO = "eB-wv8JCQBQ"
-VIDEO_UPLOADED = "2026-10-15"
+VIDEO_UPLOADED = "2026-10-15T22:30:00+05:30"  # YouTube publish time (ISO 8601 with timezone)
 SOCIAL = [("YouTube", "https://www.youtube.com/channel/UCejj6SJz-D7oxEPjy8I-hmw"),
           ("Instagram", "https://www.instagram.com/bestcallerapp/"),
           ("Facebook", "https://www.facebook.com/bestcallerapp/"),
