@@ -595,7 +595,7 @@ def guide_page(slug, title, desc, content, prev=None, nxt=None):
     path = f"guide/{slug}/"
     seo_title, seo_desc = GUIDE_SEO.get(slug, (title, desc))
     article = {"@type": "TechArticle", "@id": DOMAIN + path + "#article", "headline": title, "name": seo_title,
-               "description": seo_desc, "url": DOMAIN + path, "inLanguage": "en", "dateModified": TODAY,
+               "description": seo_desc, "url": DOMAIN + path, "inLanguage": "en", "datePublished": "2026-10-10T09:00:00+05:30", "dateModified": f"{TODAY}T09:00:00+05:30",
                "image": DOMAIN + "assets/img/og-image.jpg", "proficiencyLevel": "Beginner",
                "about": {"@id": APP_ID}, "isPartOf": {"@id": DOMAIN + "guide/#guide"},
                "author": {"@id": ORG_ID}, "publisher": ORG, "mainEntityOfPage": DOMAIN + path}
