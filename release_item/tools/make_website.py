@@ -6,7 +6,7 @@ Writes plain HTML (no build step is needed to host it): home, guide index + tuto
 404, sitemap.xml, robots.txt, and image derivatives (WebP/JPEG) from 4_graphics/screenshots_<ver>/.
 Edit the content in this file, re-run, review the diff, then publish the website folder.
 """
-import html, os, re, sys
+import hashlib, html, json, os, re, sys
 from datetime import date
 from PIL import Image
 import brand as B
@@ -20,6 +20,43 @@ EMAIL = "smswebhook@bestcallerapp.com"
 TODAY = date.today().isoformat()
 UPDATED = "10 October 2026"
 VIDEO_SECONDS = 39
+APP_VERSION = "1.0.0"
+YOUTUBE_PROMO = "eB-wv8JCQBQ"
+VIDEO_UPLOADED = "2026-10-15"
+SOCIAL = [("YouTube", "https://www.youtube.com/channel/UCejj6SJz-D7oxEPjy8I-hmw"),
+          ("Instagram", "https://www.instagram.com/bestcallerapp/"),
+          ("Facebook", "https://www.facebook.com/bestcallerapp/"),
+          ("LinkedIn", "https://www.linkedin.com/company/145186100/")]
+ORG_ID = "https://bestcallerapp.com/#org"
+APP_ID = DOMAIN + "#app"
+ORG = {"@type": "Organization", "@id": ORG_ID, "name": "Best Caller", "url": "https://bestcallerapp.com",
+       "logo": DOMAIN + "assets/img/icon-512.png", "email": EMAIL, "sameAs": [u for _, u in SOCIAL],
+       "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}}
+
+
+def asset_ver(name):
+    """Short content hash for cache-busting the stylesheet and script URLs."""
+    path = os.path.join(SITE, "assets", name)
+    return hashlib.sha1(open(path, "rb").read()).hexdigest()[:8] if os.path.exists(path) else "1"
+
+
+def ld_script(nodes):
+    if not nodes:
+        return ""
+    data = {"@context": "https://schema.org", "@graph": nodes}
+    return '<script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + "\n</script>\n"
+
+
+def crumbs_ld(path, items):
+    """items: [(name, path)] after Home; the last one is the current page."""
+    trail = [("Home", "")] + items
+    return {"@type": "BreadcrumbList", "@id": DOMAIN + path + "#breadcrumb",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": DOMAIN + u}
+                                for i, (n, u) in enumerate(trail)]}
+
+
+def strip_tags(text):
+    return html.unescape(re.sub(r"<[^>]+>", "", text))
 
 # ---------------------------------------------------------------- images
 APP_SHOTS = {  # site name → raw screenshot
@@ -98,7 +135,7 @@ NAV = [("#features", "Features"), ("#how", "How it works"), ("#screens", "Screen
        ("#faq", "FAQ"), ("guide/", "Guide"), ("support/", "Support")]
 
 
-def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head=""):
+def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head="", ld=None, og_type="website", noindex=False):
     depth = path.count("/")
     up = "../" * depth
     canonical = DOMAIN + path
@@ -106,7 +143,8 @@ def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head=""
         f'      <a href="{up}{"" if href.startswith("#") else ""}{href if not href.startswith("#") else ("" if home else "") + href}">{label}</a>'
         if not href.startswith("#") else f'      <a href="{"" if home else up}{href}">{label}</a>'
         for href, label in NAV)
-    head_extra = extra_head
+    head_extra = ("<meta name=\"robots\" content=\"noindex\">\n" if noindex else "") + extra_head + ld_script(ld)
+    follow = "\n".join(f'          <li><a href="{u}" rel="me noopener">{n}</a></li>' for n, u in SOCIAL)
     main_open = '<main id="main">' if home else f'<main id="main" class="{main_cls}">'
     doc = f'''<!doctype html>
 <html lang="en">
@@ -121,8 +159,10 @@ def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head=""
 <link rel="icon" href="{up}favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="{up}assets/img/icon-192.png">
 <link rel="preload" href="{up}assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{up}assets/site.css">
-<meta property="og:type" content="website">
+<meta name="robots" content="max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="stylesheet" href="{up}assets/site.css?v={asset_ver("site.css")}">
+<meta property="og:type" content="{og_type}">
+<meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="SMS Webhook">
 <meta property="og:url" content="{canonical}">
 <meta property="og:title" content="{html.escape(title)}">
@@ -130,8 +170,12 @@ def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head=""
 <meta property="og:image" content="{DOMAIN}assets/img/og-image.jpg">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="SMS Webhook: forward SMS to your webhook or API">
 <meta name="twitter:card" content="summary_large_image">
-{head_extra}<script src="{up}assets/site.js" defer></script>
+<meta name="twitter:title" content="{html.escape(title)}">
+<meta name="twitter:description" content="{html.escape(desc)}">
+<meta name="twitter:image" content="{DOMAIN}assets/img/og-image.jpg">
+{head_extra}<script src="{up}assets/site.js?v={asset_ver("site.js")}" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -174,6 +218,12 @@ def page(path, title, desc, body, home=False, main_cls="wrap doc", extra_head=""
           <li><a href="{up}privacy/">Privacy policy</a></li>
           <li><a href="{up}terms/">Terms of use</a></li>
           <li><a href="mailto:{EMAIL}">Email us</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Follow us">
+        <h2>Follow</h2>
+        <ul>
+{follow}
         </ul>
       </nav>
     </div>
@@ -492,15 +542,42 @@ X-Idempotency-Key: 42-3-1791212400412
     </div>
   </div>
 </section>'''
-    ld = f'''<script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"MobileApplication","name":"SMS Webhook","alternateName":"SMS Webhook: Forward SMS",
- "description":"Forward incoming SMS to your own webhook or API, with filters, JSON payloads, regex extraction and retries.",
- "url":"{DOMAIN}","image":"{DOMAIN}assets/img/icon-512.png","operatingSystem":"Android 8.0 or later",
- "applicationCategory":"UtilitiesApplication","offers":{{"@type":"Offer","price":"0","priceCurrency":"INR"}},
- "installUrl":"{PLAY}","publisher":{{"@type":"Organization","name":"Best Caller","url":"https://bestcallerapp.com"}}}}
-</script>
-'''
-    return page("", "SMS Webhook – Forward SMS to your webhook or API", "Free Android app that forwards incoming SMS to your own webhook or API, with filters, JSON payloads, regex extraction and automatic retries.", body, home=True, extra_head=ld)
+    app = {"@type": "MobileApplication", "@id": APP_ID, "name": "SMS Webhook", "alternateName": "SMS Webhook: Forward SMS",
+           "description": "Free Android app that forwards incoming SMS to your own webhook or HTTP API over HTTPS, with filters, "
+                          "JSON payloads, regex extraction, automatic retries and delivery logs.",
+           "url": DOMAIN, "image": DOMAIN + "assets/img/icon-512.png", "operatingSystem": "Android 8.0 or later",
+           "applicationCategory": "UtilitiesApplication", "applicationSubCategory": "SMS forwarding",
+           "softwareVersion": APP_VERSION, "inLanguage": "en", "isAccessibleForFree": True,
+           "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+           "installUrl": PLAY, "downloadUrl": PLAY, "sameAs": [PLAY],
+           "screenshot": [DOMAIN + f"assets/img/app/{n}-720.webp" for n in ("webhooks", "filters", "extraction", "deliveries")],
+           "featureList": ["Forward incoming SMS to any HTTPS webhook or API",
+                           "Multiple webhooks, each with its own filters (sender, keywords, regex, SIM, time; AND / OR / NOT)",
+                           "JSON, custom JSON template, plain text or form-data payloads",
+                           "Extract OTP, amount or account number with regex",
+                           "Bearer token, Basic auth, API-key and custom headers, encrypted with Android Keystore",
+                           "Offline queue, automatic retries with exponential backoff, idempotency keys",
+                           "Message history and delivery logs with HTTP status",
+                           "No account, no ads, no analytics"],
+           "publisher": {"@id": ORG_ID}, "author": {"@id": ORG_ID}}
+    site = {"@type": "WebSite", "@id": DOMAIN + "#website", "url": DOMAIN, "name": "SMS Webhook", "inLanguage": "en",
+            "publisher": {"@id": ORG_ID}}
+    video = {"@type": "VideoObject", "name": "SMS Webhook: Forward SMS to Your Webhook or API",
+             "description": "How SMS Webhook forwards incoming Android SMS to your own webhook or API: multiple webhooks, "
+                            "filters, payload formats, regex extraction, delivery tracking and retries.",
+             "thumbnailUrl": [DOMAIN + "assets/img/video-poster.webp", f"https://i.ytimg.com/vi/{YOUTUBE_PROMO}/maxresdefault.jpg"],
+             "uploadDate": VIDEO_UPLOADED, "duration": f"PT{VIDEO_SECONDS}S", "contentUrl": DOMAIN + "assets/promo-720p.mp4",
+             "embedUrl": f"https://www.youtube.com/embed/{YOUTUBE_PROMO}", "publisher": {"@id": ORG_ID}}
+    faq_ld = {"@type": "FAQPage", "@id": DOMAIN + "#faq",
+              "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}}
+                             for q, a in faqs]}
+    og_video = (f'<meta property="og:video" content="{DOMAIN}assets/promo-720p.mp4">\n'
+                '<meta property="og:video:type" content="video/mp4">\n<meta property="og:video:width" content="1280">\n'
+                '<meta property="og:video:height" content="720">\n')
+    return page("", "SMS Webhook – Forward SMS to Webhook or API on Android",
+                "Free Android app that forwards incoming SMS to your own webhook or API, with filters, JSON payloads, regex "
+                "extraction and automatic retries. No account, no ads.",
+                body, home=True, extra_head=og_video, ld=[app, ORG, site, video, faq_ld])
 
 
 # ---------------------------------------------------------------- guide
@@ -515,7 +592,16 @@ def guide_page(slug, title, desc, content, prev=None, nxt=None):
 <p class="meta">{desc}</p>
 {content.replace("{UP}", up)}
 {pager}'''
-    return page(f"guide/{slug}/", f"{title} · SMS Webhook", desc, body, main_cls="wrap doc guide")
+    path = f"guide/{slug}/"
+    seo_title, seo_desc = GUIDE_SEO.get(slug, (title, desc))
+    article = {"@type": "TechArticle", "@id": DOMAIN + path + "#article", "headline": title, "name": seo_title,
+               "description": seo_desc, "url": DOMAIN + path, "inLanguage": "en", "dateModified": TODAY,
+               "image": DOMAIN + "assets/img/og-image.jpg", "proficiencyLevel": "Beginner",
+               "about": {"@id": APP_ID}, "isPartOf": {"@id": DOMAIN + "guide/#guide"},
+               "author": {"@id": ORG_ID}, "publisher": ORG, "mainEntityOfPage": DOMAIN + path}
+    ld = [article, crumbs_ld(path, [("How-to guide", "guide/"), (title, path)])]
+    return page(path, f"{seo_title} | SMS Webhook" if len(seo_title) <= 46 else seo_title, seo_desc, body,
+                main_cls="wrap doc guide", ld=ld, og_type="article")
 
 
 def split(steps_html, shots):
@@ -536,6 +622,32 @@ GUIDES = [
     ("receive-on-your-server", "Receive webhooks on your server", "What the app sends, how to respond, and examples in Node.js, Python and PHP.", "server"),
     ("troubleshooting", "Troubleshooting", "Fix the common problems: no SMS, failed deliveries, regex that doesn't match.", "help"),
 ]
+
+# Search titles (≤ 60 chars) and descriptions (≈ 120–160 chars); the visible H1 and intro stay as in GUIDES.
+GUIDE_SEO = {
+    "getting-started": ("Getting Started: Forward SMS to a Webhook on Android",
+                        "Set up SMS Webhook on Android: install the app, allow the Receive SMS permission, and keep SMS forwarding running reliably in the background."),
+    "add-a-webhook": ("Add a Webhook: Send SMS to Any URL or API",
+                      "Step by step: add a webhook in SMS Webhook, enter your HTTPS endpoint, choose which SMS to forward and the payload format, then send a test."),
+    "filters": ("Filter SMS by Sender, Keyword or Regex Before Forwarding",
+                "Forward only the SMS you need: match sender IDs, keywords (any or all), regex, SIM slot, length and time of day, combined with AND, OR and NOT."),
+    "payloads": ("SMS to JSON: Payload Formats and Custom Templates",
+                 "Send SMS to your API as JSON with your own field names, a custom JSON template, plain text or form data, and pick exactly which fields are sent."),
+    "regex-extraction": ("Extract OTP, Amount or Account Number from SMS (Regex)",
+                         "Use regex capture groups to pull an OTP, amount, account number or any value out of an SMS and send it as its own JSON field, with a live preview."),
+    "headers-and-authentication": ("Webhook Auth: Bearer Token, Basic Auth, API Key Headers",
+                                   "Secure your SMS webhook with a Bearer token, Basic auth, API-key or custom headers. Secret values are encrypted on the phone and hidden in logs."),
+    "delivery-and-retries": ("Reliable SMS Forwarding: Retries and Offline Queue",
+                             "How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key."),
+    "history-and-logs": ("SMS Forwarding History and Webhook Delivery Logs",
+                         "Search forwarded SMS, see which webhooks matched, every attempt, HTTP status and response, and retry failed deliveries with one tap."),
+    "settings": ("Settings: SMS History Retention, Export and Import",
+                 "Choose how long SMS history is kept, set delivery defaults, view logs, and export or import your webhook settings with or without secrets."),
+    "receive-on-your-server": ("Receive SMS Webhooks on Your Server (Node.js, Python, PHP)",
+                               "What SMS Webhook sends to your endpoint, how to respond and handle retries safely, with ready-to-use examples in Node.js, Python and PHP."),
+    "troubleshooting": ("SMS Not Forwarding? SMS Webhook Troubleshooting",
+                        "Fix common problems: SMS not received or not forwarded, failed or slow webhook deliveries, HTTP errors, and regex that doesn't match."),
+}
 
 
 def guide_content():
@@ -878,7 +990,15 @@ def guide_index():
 {cards}
 </div>
 <p style="margin-top:32px">Still stuck? See <a href="../support/">Support</a> or email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>'''
-    return page("guide/", "How-to guide · SMS Webhook", "Step-by-step tutorials for SMS Webhook: setup, filters, payloads, regex extraction, retries and server integration.", body, main_cls="wrap doc guide")
+    coll = {"@type": "CollectionPage", "@id": DOMAIN + "guide/#guide", "name": "SMS Webhook how-to guide", "url": DOMAIN + "guide/",
+            "inLanguage": "en", "about": {"@id": APP_ID}, "publisher": {"@id": ORG_ID},
+            "mainEntity": {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": t, "url": f"{DOMAIN}guide/{sl}/"}
+                for i, (sl, t, _, _) in enumerate(GUIDES)]}}
+    return page("guide/", "How-to Guide: Forward SMS to Webhook or API | SMS Webhook",
+                "Step-by-step tutorials for SMS Webhook: set up SMS forwarding on Android, filters, JSON payloads, regex "
+                "extraction, retries and receiving webhooks on your server.",
+                body, main_cls="wrap doc guide", ld=[coll, crumbs_ld("guide/", [("How-to guide", "guide/")])])
 
 
 # ---------------------------------------------------------------- legal & support
@@ -926,7 +1046,12 @@ def privacy():
 
 <h2>8. Contact and grievance officer</h2>
 <p>Questions or complaints: <a href="mailto:{EMAIL}">{EMAIL}</a>. Grievance officer (India): Best Caller, Bengaluru, Karnataka, India, at the same email address. We aim to respond within 7 days.</p>'''
-    return page("privacy/", "Privacy Policy · SMS Webhook", "How SMS Webhook handles your messages: forwarded only to the webhooks you configure, never to us.", body)
+    return page("privacy/", "Privacy Policy · SMS Webhook",
+                "How SMS Webhook handles your SMS: stored on your phone and forwarded only to the webhooks you configure. "
+                "The developer never receives your messages.", body,
+                ld=[{"@type": "WebPage", "@id": DOMAIN + "privacy/", "name": "Privacy Policy", "url": DOMAIN + "privacy/",
+                     "about": {"@id": APP_ID}, "publisher": {"@id": ORG_ID}},
+                    crumbs_ld("privacy/", [("Privacy policy", "privacy/")])])
 
 
 def terms():
@@ -951,7 +1076,9 @@ def terms():
 <p>These terms are governed by the laws of India; courts in Bengaluru, Karnataka have jurisdiction.</p>
 <h2>7. Contact</h2>
 <p><a href="mailto:{EMAIL}">{EMAIL}</a></p>'''
-    return page("terms/", "Terms of Use · SMS Webhook", "Terms of use for the SMS Webhook Android app.", body)
+    return page("terms/", "Terms of Use · SMS Webhook",
+                "Terms of use for SMS Webhook, the free Android app that forwards incoming SMS to the webhooks and APIs you configure.", body,
+                ld=[crumbs_ld("terms/", [("Terms of use", "terms/")])])
 
 
 def support():
@@ -976,12 +1103,18 @@ def support():
 <li><b>Data already forwarded</b> to your webhooks is stored on those servers; delete it there.</li>
 </ul>
 <p>Read the full <a href="../privacy/">privacy policy</a>.</p>'''
-    return page("support/", "Support · SMS Webhook", "Help, contact and data deletion for SMS Webhook.", body)
+    return page("support/", "Support, Contact and Data Deletion · SMS Webhook",
+                "Get help with SMS Webhook: email support, find answers in the how-to guide, and learn how to delete your data from the app.", body,
+                ld=[{"@type": "ContactPage", "@id": DOMAIN + "support/", "name": "SMS Webhook support", "url": DOMAIN + "support/",
+                     "about": {"@id": APP_ID},
+                     "publisher": {**ORG, "contactPoint": {"@type": "ContactPoint", "contactType": "customer support",
+                                                           "email": EMAIL, "availableLanguage": ["English"]}}},
+                    crumbs_ld("support/", [("Support", "support/")])])
 
 
 def not_found():
     body = '''<h1>Page not found</h1><p class="meta">That page does not exist.</p><p><a href="/">Go to the home page</a> or the <a href="/guide/">how-to guide</a>.</p>'''
-    out = page("404.html", "Page not found · SMS Webhook", "Page not found.", body)
+    out = page("404.html", "Page not found · SMS Webhook", "Page not found.", body, noindex=True)
     # 404 is served from any path, so use absolute asset URLs.
     s = open(out).read().replace('href="favicon.png"', 'href="/favicon.png"').replace('"assets/', '"/assets/').replace('href="./"', 'href="/"')
     for a in ('guide/', 'support/', 'privacy/', 'terms/'):
@@ -991,11 +1124,38 @@ def not_found():
 
 
 def hosting_files():
-    urls = ["", "guide/"] + [f"guide/{g[0]}/" for g in GUIDES] + ["privacy/", "terms/", "support/"]
-    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    sm += "".join(f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n"
-    open(os.path.join(SITE, "sitemap.xml"), "w").write(sm)
-    open(os.path.join(SITE, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}sitemap.xml\n")
+    # Sitemap (sitemaps.org 0.9 + Google image/video extensions). Google uses <loc> and <lastmod> and ignores
+    # <priority>/<changefreq>, so only those are written.
+    esc = lambda t: html.escape(t, quote=True)
+    pages = [("", ["webhooks", "filters", "payload", "extraction", "deliveries", "logs"])] + [("guide/", [])] + \
+            [(f"guide/{g[0]}/", []) for g in GUIDES] + [("privacy/", []), ("terms/", []), ("support/", [])]
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+          '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"',
+          '        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">']
+    for u, shots in pages:
+        sm.append("  <url>")
+        sm.append(f"    <loc>{esc(DOMAIN + u)}</loc>")
+        sm.append(f"    <lastmod>{TODAY}</lastmod>")
+        for n in shots:
+            sm.append(f"    <image:image><image:loc>{esc(DOMAIN)}assets/img/app/{n}-720.webp</image:loc></image:image>")
+        if u == "":
+            sm += ["    <video:video>",
+                   f"      <video:thumbnail_loc>{esc(DOMAIN)}assets/img/video-poster.webp</video:thumbnail_loc>",
+                   "      <video:title>SMS Webhook: Forward SMS to Your Webhook or API</video:title>",
+                   "      <video:description>How SMS Webhook forwards incoming Android SMS to your own webhook or API: "
+                   "filters, payload formats, regex extraction, delivery tracking and retries.</video:description>",
+                   f"      <video:content_loc>{esc(DOMAIN)}assets/promo-720p.mp4</video:content_loc>",
+                   f"      <video:player_loc>https://www.youtube.com/embed/{YOUTUBE_PROMO}</video:player_loc>",
+                   f"      <video:duration>{VIDEO_SECONDS}</video:duration>",
+                   f"      <video:publication_date>{VIDEO_UPLOADED}</video:publication_date>",
+                   "      <video:family_friendly>yes</video:family_friendly>",
+                   "    </video:video>"]
+        sm.append("  </url>")
+    sm.append("</urlset>")
+    open(os.path.join(SITE, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
+    open(os.path.join(SITE, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}sitemap.xml\n")
+    llms()
     open(os.path.join(SITE, "CNAME"), "w").write("smswebhook.bestcallerapp.com\n")
     open(os.path.join(SITE, ".nojekyll"), "w").write("")
     open(os.path.join(SITE, "README.md"), "w").write(f"""# SMS Webhook — website
@@ -1016,6 +1176,33 @@ Regenerate with `python3 release_item/tools/make_website.py v1.0.0`, review, the
 **Hosting:** GitHub Pages (or any static host). `CNAME` holds the custom domain; DNS: `CNAME smswebhook → <user>.github.io`.
 No build step, no trackers, fonts self-hosted (Inter, OFL).
 """)
+
+
+def llms():
+    """llms.txt (llmstxt.org): a plain summary of the app and links to every page, for AI assistants and search."""
+    lines = ["# SMS Webhook", "",
+             "> SMS Webhook is a free Android app by Best Caller that forwards the SMS a phone receives to the user's own "
+             "webhook or HTTP API over HTTPS, in real time. No account, no ads, no analytics; the developer never receives "
+             "message content.", "",
+             f"Package: com.bestcallerapp.smswebhook · Version {APP_VERSION} · Android 8.0+ · Free · Publisher: Best Caller "
+             f"(Bengaluru, India) · Contact: {EMAIL}", "",
+             "Key facts:",
+             "- Forwards incoming SMS only (permission RECEIVE_SMS). It does not read the existing inbox, send SMS, or forward RCS/WhatsApp.",
+             "- Multiple webhooks, each with its own filters: sender, message text, keywords (ANY/ALL), regex, SIM slot, length, time of day; combined with AND / OR / NOT.",
+             "- Payload formats: JSON with chosen and renamed fields, custom JSON template ({{sender}}, {{message}}, {{timestamp}}…), plain text, form data.",
+             "- Regex capture groups extract values such as amount, OTP or account number into their own fields.",
+             "- Custom headers, Bearer token, Basic auth, API-key headers; secrets encrypted with Android Keystore.",
+             "- Reliable delivery: messages stored on the phone first, offline queue, background jobs, exponential-backoff retries, duplicate detection, X-Idempotency-Key header.",
+             "- Message history and delivery logs with HTTP status, response and attempts; one-tap retry.",
+             "- Typical uses: payment/UPI/bank alert reconciliation in a backend, OTP relay for QA and test automation, CRM logging, Zapier / n8n / Make workflows.",
+             "", "## Docs", f"- [Home]({DOMAIN}): overview, features, FAQ", f"- [How-to guide]({DOMAIN}guide/): all tutorials"]
+    lines += [f"- [{t}]({DOMAIN}guide/{sl}/): {GUIDE_SEO.get(sl, (t, d))[1]}" for sl, t, d, _ in GUIDES]
+    lines += ["", "## Policies", f"- [Privacy policy]({DOMAIN}privacy/)", f"- [Terms of use]({DOMAIN}terms/)",
+              f"- [Support and data deletion]({DOMAIN}support/)",
+              "", "## Links", f"- [Google Play]({PLAY})", f"- [Product video on YouTube](https://youtu.be/{YOUTUBE_PROMO})",
+              "- [Source code](https://github.com/raushan7999/smswebhook)"]
+    lines += [f"- [{n}]({u})" for n, u in SOCIAL]
+    open(os.path.join(SITE, "llms.txt"), "w").write("\n".join(lines) + "\n")
 
 
 def promo_video():

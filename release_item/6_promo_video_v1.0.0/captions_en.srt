@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:03,000
+SMS Webhook
+Forward SMS to your webhook or API
+
+2
+00:00:03,000 --> 00:00:07,600
+Every SMS, straight to your server
+
+3
+00:00:07,600 --> 00:00:11,200
+Multiple webhooks
+Each with its own filters, payload and retries
+
+4
+00:00:11,200 --> 00:00:15,600
+Smart filters
+Forward only the messages you need
+
+5
+00:00:15,600 --> 00:00:19,800
+Your JSON, your way
+Pick fields and names, or write a template
+
+6
+00:00:19,800 --> 00:00:23,800
+Extract values with regex
+Amount, account or OTP becomes its own field
+
+7
+00:00:23,800 --> 00:00:27,400
+Every delivery tracked
+Status, attempts, HTTP code and response
+
+8
+00:00:27,400 --> 00:00:31,600
+Reliable by design
+Works offline, automatic retries, no duplicates
+
+9
+00:00:31,600 --> 00:00:35,400
+Private by design
+Your SMS go only to the webhooks you add
+
+10
+00:00:35,400 --> 00:00:39,200
+SMS Webhook
+smswebhook.bestcallerapp.com
+Free · No ads · Android 8.0+

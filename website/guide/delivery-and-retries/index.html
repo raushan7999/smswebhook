@@ -3,25 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Delivery, retries and offline · SMS Webhook</title>
-<meta name="description" content="How messages are delivered, retried and kept safe without internet.">
+<title>Reliable SMS Forwarding: Retries and Offline Queue</title>
+<meta name="description" content="How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key.">
 <link rel="canonical" href="https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/">
 <meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="../../assets/img/icon-192.png">
 <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/site.css?v=20261015">
-<meta property="og:type" content="website">
+<meta name="robots" content="max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="stylesheet" href="../../assets/site.css?v=32232457">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="SMS Webhook">
 <meta property="og:url" content="https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/">
-<meta property="og:title" content="Delivery, retries and offline · SMS Webhook">
-<meta property="og:description" content="How messages are delivered, retried and kept safe without internet.">
+<meta property="og:title" content="Reliable SMS Forwarding: Retries and Offline Queue">
+<meta property="og:description" content="How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key.">
 <meta property="og:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="SMS Webhook: forward SMS to your webhook or API">
 <meta name="twitter:card" content="summary_large_image">
-<script src="../../assets/site.js" defer></script>
+<meta name="twitter:title" content="Reliable SMS Forwarding: Retries and Offline Queue">
+<meta name="twitter:description" content="How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key.">
+<meta name="twitter:image" content="https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/#article", "headline": "Delivery, retries and offline", "name": "Reliable SMS Forwarding: Retries and Offline Queue", "description": "How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key.", "url": "https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/", "inLanguage": "en", "dateModified": "2026-10-15", "image": "https://smswebhook.bestcallerapp.com/assets/img/og-image.jpg", "proficiencyLevel": "Beginner", "about": {"@id": "https://smswebhook.bestcallerapp.com/#app"}, "isPartOf": {"@id": "https://smswebhook.bestcallerapp.com/guide/#guide"}, "author": {"@id": "https://bestcallerapp.com/#org"}, "publisher": {"@type": "Organization", "@id": "https://bestcallerapp.com/#org", "name": "Best Caller", "url": "https://bestcallerapp.com", "logo": "https://smswebhook.bestcallerapp.com/assets/img/icon-512.png", "email": "smswebhook@bestcallerapp.com", "sameAs": ["https://www.youtube.com/channel/UCejj6SJz-D7oxEPjy8I-hmw", "https://www.instagram.com/bestcallerapp/", "https://www.facebook.com/bestcallerapp/", "https://www.linkedin.com/company/145186100/"], "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}}, "mainEntityOfPage": "https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/"}, {"@type": "BreadcrumbList", "@id": "https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://smswebhook.bestcallerapp.com/"}, {"@type": "ListItem", "position": 2, "name": "How-to guide", "item": "https://smswebhook.bestcallerapp.com/guide/"}, {"@type": "ListItem", "position": 3, "name": "Delivery, retries and offline", "item": "https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/"}]}]}
+</script>
+<script src="../../assets/site.js?v=777de630" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

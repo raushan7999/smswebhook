@@ -2,7 +2,7 @@
 
 > SMS Webhook is a free Android app by Best Caller that forwards the SMS a phone receives to the user's own webhook or HTTP API over HTTPS, in real time. No account, no ads, no analytics; the developer never receives message content.
 
-Package: com.bestcallerapp.smswebhook · Android 8.0+ · Free · Publisher: Best Caller (Bengaluru, India) · Contact: smswebhook@bestcallerapp.com
+Package: com.bestcallerapp.smswebhook · Version 1.0.0 · Android 8.0+ · Free · Publisher: Best Caller (Bengaluru, India) · Contact: smswebhook@bestcallerapp.com
 
 Key facts:
 - Forwards incoming SMS only (permission RECEIVE_SMS). It does not read the existing inbox, send SMS, or forward RCS/WhatsApp.
@@ -10,29 +10,35 @@ Key facts:
 - Payload formats: JSON with chosen and renamed fields, custom JSON template ({{sender}}, {{message}}, {{timestamp}}…), plain text, form data.
 - Regex capture groups extract values such as amount, OTP or account number into their own fields.
 - Custom headers, Bearer token, Basic auth, API-key headers; secrets encrypted with Android Keystore.
-- Reliable delivery: messages stored on the phone first, offline queue, WorkManager background jobs, exponential-backoff retries, duplicate detection, X-Idempotency-Key header.
-- Message history and delivery logs with HTTP status, response, attempts; one-tap retry.
+- Reliable delivery: messages stored on the phone first, offline queue, background jobs, exponential-backoff retries, duplicate detection, X-Idempotency-Key header.
+- Message history and delivery logs with HTTP status, response and attempts; one-tap retry.
 - Typical uses: payment/UPI/bank alert reconciliation in a backend, OTP relay for QA and test automation, CRM logging, Zapier / n8n / Make workflows.
 
 ## Docs
 - [Home](https://smswebhook.bestcallerapp.com/): overview, features, FAQ
 - [How-to guide](https://smswebhook.bestcallerapp.com/guide/): all tutorials
-- [Getting started](https://smswebhook.bestcallerapp.com/guide/getting-started/)
-- [Add a webhook](https://smswebhook.bestcallerapp.com/guide/add-a-webhook/)
-- [Filters](https://smswebhook.bestcallerapp.com/guide/filters/)
-- [Payloads](https://smswebhook.bestcallerapp.com/guide/payloads/)
-- [Regex extraction](https://smswebhook.bestcallerapp.com/guide/regex-extraction/)
-- [Headers and authentication](https://smswebhook.bestcallerapp.com/guide/headers-and-authentication/)
-- [Delivery and retries](https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/)
-- [Receive on your server (developer guide)](https://smswebhook.bestcallerapp.com/guide/receive-on-your-server/)
-- [Troubleshooting](https://smswebhook.bestcallerapp.com/guide/troubleshooting/)
+- [Getting started](https://smswebhook.bestcallerapp.com/guide/getting-started/): Set up SMS Webhook on Android: install the app, allow the Receive SMS permission, and keep SMS forwarding running reliably in the background.
+- [Add a webhook](https://smswebhook.bestcallerapp.com/guide/add-a-webhook/): Step by step: add a webhook in SMS Webhook, enter your HTTPS endpoint, choose which SMS to forward and the payload format, then send a test.
+- [Message filters](https://smswebhook.bestcallerapp.com/guide/filters/): Forward only the SMS you need: match sender IDs, keywords (any or all), regex, SIM slot, length and time of day, combined with AND, OR and NOT.
+- [Payload formats](https://smswebhook.bestcallerapp.com/guide/payloads/): Send SMS to your API as JSON with your own field names, a custom JSON template, plain text or form data, and pick exactly which fields are sent.
+- [Extract values with regex](https://smswebhook.bestcallerapp.com/guide/regex-extraction/): Use regex capture groups to pull an OTP, amount, account number or any value out of an SMS and send it as its own JSON field, with a live preview.
+- [Headers and authentication](https://smswebhook.bestcallerapp.com/guide/headers-and-authentication/): Secure your SMS webhook with a Bearer token, Basic auth, API-key or custom headers. Secret values are encrypted on the phone and hidden in logs.
+- [Delivery, retries and offline](https://smswebhook.bestcallerapp.com/guide/delivery-and-retries/): How SMS Webhook delivers every message: stored on the phone first, queued while offline, retried with backoff, and sent with an idempotency key.
+- [History and delivery logs](https://smswebhook.bestcallerapp.com/guide/history-and-logs/): Search forwarded SMS, see which webhooks matched, every attempt, HTTP status and response, and retry failed deliveries with one tap.
+- [Settings, retention and backup](https://smswebhook.bestcallerapp.com/guide/settings/): Choose how long SMS history is kept, set delivery defaults, view logs, and export or import your webhook settings with or without secrets.
+- [Receive webhooks on your server](https://smswebhook.bestcallerapp.com/guide/receive-on-your-server/): What SMS Webhook sends to your endpoint, how to respond and handle retries safely, with ready-to-use examples in Node.js, Python and PHP.
+- [Troubleshooting](https://smswebhook.bestcallerapp.com/guide/troubleshooting/): Fix common problems: SMS not received or not forwarded, failed or slow webhook deliveries, HTTP errors, and regex that doesn't match.
 
 ## Policies
 - [Privacy policy](https://smswebhook.bestcallerapp.com/privacy/)
 - [Terms of use](https://smswebhook.bestcallerapp.com/terms/)
-- [Support](https://smswebhook.bestcallerapp.com/support/)
+- [Support and data deletion](https://smswebhook.bestcallerapp.com/support/)
 
 ## Links
 - [Google Play](https://play.google.com/store/apps/details?id=com.bestcallerapp.smswebhook)
 - [Product video on YouTube](https://youtu.be/eB-wv8JCQBQ)
 - [Source code](https://github.com/raushan7999/smswebhook)
+- [YouTube](https://www.youtube.com/channel/UCejj6SJz-D7oxEPjy8I-hmw)
+- [Instagram](https://www.instagram.com/bestcallerapp/)
+- [Facebook](https://www.facebook.com/bestcallerapp/)
+- [LinkedIn](https://www.linkedin.com/company/145186100/)
